@@ -1,6 +1,7 @@
 package com.neu.bigdata.es_consumer.dao;
 
 import com.neu.bigdata.es_consumer.constant.Constant;
+import org.elasticsearch.xcontent.XContentType;
 import org.springframework.stereotype.Repository;
 import org.elasticsearch.action.delete.DeleteRequest;
 import org.elasticsearch.action.delete.DeleteResponse;
@@ -15,7 +16,6 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.client.indices.CreateIndexRequest;
 import org.elasticsearch.client.indices.GetIndexRequest;
 import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.xcontent.XContentType;
 import org.elasticsearch.rest.RestStatus;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -41,7 +41,7 @@ public class ElasticSearchDao {
         }
 
         IndexRequest request = new IndexRequest(Constant.PLAN);
-        request.source(plan.toString(), XContentType.JSON);
+        request.source(plan.toString(), XContentType.JSON );
         request.id(plan.get("objectId").toString());
 
         if (plan.has("parent_id")) {
