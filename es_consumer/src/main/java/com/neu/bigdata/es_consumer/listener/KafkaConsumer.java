@@ -27,7 +27,7 @@ public class KafkaConsumer {
         logger.info("Consumed message: \nKey: " + record.key().toString() + " \nValue: " + record.value().toString());
 
         // Send Message to elastic search
-        if (record.key().toString().equals(Constant.ES_POST)) {
+        if (record.key().toString().equals(Constant.ES_INDEX)) {
             logger.info("CONSUMER " + record.key() + " : " + record.value());
 
             JSONObject planJson = new JSONObject(record.value().toString());
