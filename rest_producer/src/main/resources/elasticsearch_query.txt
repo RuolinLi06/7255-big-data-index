@@ -1,0 +1,142 @@
+//GET All Plan
+GET plan/_search
+{
+  "query" : {
+    "match_all" : {}
+   }
+ }
+
+ //GET by objectId
+GET plan/_search
+{
+  "query" : {
+      "bool": {
+        "must": [
+          {
+            "match": {
+              "objectId": "1234vxc2324sdf-501"
+            }
+          }
+        ]
+      }
+     }
+   }
+ }
+
+
+//GET All child objects have parent plan
+GET plan/_search
+{
+  "query" : {
+    "has_parent" : {
+      "parent_type" : "plan",
+      "query" : {
+         "match_all" : {}
+       }
+     }
+   }
+ }
+
+ //GET Parent who has children with type membercostshare
+ GET plan/_search
+{
+  "query" : {
+    "has_child": {
+      "type" : "membercostshare",
+      "query" : {
+         "match_all" : {}
+       }
+     }
+   }
+ }
+
+ //GET child objects who has parent planservice id 27283xvx9asdff-504
+GET plan/_search
+{
+  "query" : {
+    "has_parent" : {
+      "parent_type" : "planservice",
+      "query" : {
+          "bool": {
+            "must": [
+              {
+                "match": {
+                  "objectId": "27283xvx9asdff-504"
+                }
+              }
+            ]
+          }
+       }
+     }
+   }
+ }
+
+
+ GET plan/_search
+{
+  "query": {
+    "wildcard": {
+      "_org": {
+        "value": "example*"
+      }
+    }
+  }
+}
+
+//no result
+
+GET plan/_search
+{
+  "query" : {
+    "has_parent" : {
+      "parent_type" : "planservice",
+      "query" : {
+          "bool": {
+            "must": [
+              {
+                "match": {
+                  "objectId": "27283xvx9asdff-505"
+                }
+              }
+            ]
+          }
+       }
+     }
+   }
+ }
+
+ //failed query
+
+GET plan/_search
+{
+  "query" : {
+    "has_parent" : {
+      "parent_type" : "costShares",
+      "query" : {
+          "bool": {
+            "must": [
+              {
+                "match": {
+                  "objectId": "27283xvx9asdff-505"
+                }
+              }
+            ]
+          }
+       }
+     }
+   }
+ }
+
+
+DELETE /plan
+
+
+DELETE /plan/_doc/12xvxc345ssdsds-508
+DELETE /plan/_doc/1234vxc2324sdf-501
+DELETE /plan/_doc/1234520xvc30asdf-502
+DELETE /plan/_doc/1234512xvc1314asdfs-503
+DELETE /plan/_doc/27283xvx9asdff-504
+DELETE /plan/_doc/1234520xvc30sfs-505
+DELETE /plan/_doc/1234512xvc1314sdfsd-506
+DELETE /plan/_doc/27283xvx9sdf-507
+DELETE /plan/_doc/12xvxc345ssdsds-508
